@@ -3,7 +3,7 @@
     <main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
         <!-- Post Header -->
-        <article class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+        <article class="bg-white rounded-lg shadow-md overflow-hidden mb-8 dark:bg-gray-800">
             <!-- Featured Image -->
             <div class="h-96 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
                 <span class="text-9xl">{{ $post->photo ?? '📝' }}</span>
@@ -19,8 +19,8 @@
                             {{ strtoupper(substr($post->author, 0, 2)) }}
                         </div>
                         <div>
-                            <p class="font-semibold text-gray-900">{{ $post->author }}</p>
-                            <p class="text-sm text-gray-500">Opublikowano: {{ $post->created_at->format('d F Y') }}</p>
+                            <p class="font-semibold text-gray-900 dark:text-gray-100">{{ $post->author }}</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-300">Opublikowano: {{ $post->created_at->format('d F Y') }}</p>
                         </div>
                     </div>
                     <div class="ml-auto flex gap-2">
@@ -37,42 +37,42 @@
                 </div>
 
                 <!-- Title -->
-                <h1 class="text-4xl font-bold text-gray-900 mb-4">
+                <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-4">
                     {{ $post->title }}
                 </h1>
 
                 @if ($post->lead)
                     <!-- Lead -->
-                    <p class="text-xl text-gray-600 mb-8 leading-relaxed">
+                    <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed">
                         {{ $post->lead }}
                     </p>
                 @endif
 
                 <!-- Content -->
                 <div class="prose prose-lg max-w-none">
-                    <p class="text-gray-700 mb-4 leading-relaxed whitespace-pre-line">
+                    <p class="mb-4 leading-relaxed whitespace-pre-line text-gray-700 dark:text-gray-200">
                         {!! $post->content !!}
                     </p>
                 </div>
 
                 <!-- Tags -->
                 <div class="mt-8 pt-6 border-t border-gray-200">
-                    <p class="text-sm text-gray-600 mb-3">Tagi:</p>
+                    <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">Tagi:</p>
                     <div class="flex flex-wrap gap-2">
                         <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer">
+                            class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
                             #laravel
                         </span>
                         <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer">
+                            class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
                             #php
                         </span>
                         <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer">
+                            class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
                             #docker
                         </span>
                         <span
-                            class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer">
+                            class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-gray-200 cursor-pointer dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600">
                             #tutorial
                         </span>
                     </div>
@@ -80,7 +80,7 @@
 
                 <!-- Social Share -->
                 <div class="mt-6 flex items-center gap-4">
-                    <span class="text-sm text-gray-600">Udostępnij:</span>
+                    <span class="text-sm text-gray-600 dark:text-gray-300">Udostępnij:</span>
                     <button class="text-blue-600 hover:text-blue-700">
                         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                             <path
@@ -98,19 +98,19 @@
         </article>
 
         <!-- Comments Section -->
-        <section id="comments" class="bg-white rounded-lg shadow-md p-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">
+        <section id="comments" class="bg-white rounded-lg shadow-md p-8 dark:bg-gray-800">
+            <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6">
                 Komentarze ({{ $post->comments->count() }})
             </h2>
 
             @if (session('success'))
-                <div class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+                <div class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800 dark:border-green-900 dark:bg-green-950 dark:text-green-200">
                     {{ session('success') }}
                 </div>
             @endif
 
             @if ($errors->any())
-                <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-900 dark:bg-red-950 dark:text-red-200">
                     <ul class="space-y-1">
                         @foreach ($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -120,36 +120,36 @@
             @endif
 
             <div class="mb-8 pb-8 border-b border-gray-200">
-                <h3 class="text-lg font-semibold text-gray-900 mb-4">Dodaj komentarz</h3>
+                <h3 class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Dodaj komentarz</h3>
 
                 <form action="{{ route('posts.comments.store', $post->slug) }}" method="POST" class="space-y-4">
                     @csrf
 
                     <div>
-                        <label for="author" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="author" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Twoje imię *
                         </label>
                         <input type="text" id="author" name="author" value="{{ old('author') }}" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-indigo-500 dark:bg-white dark:text-gray-900"
                             placeholder="Jan Kowalski">
                     </div>
 
                     <div>
-                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="email" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Email *
                         </label>
                         <input type="email" id="email" name="email" value="{{ old('email') }}" required
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+                            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-indigo-500 dark:bg-white dark:text-gray-900"
                             placeholder="jan@example.com">
-                        <p class="mt-1 text-sm text-gray-500">Email nie będzie publikowany</p>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Email nie będzie publikowany</p>
                     </div>
 
                     <div>
-                        <label for="content" class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="content" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                             Komentarz *
                         </label>
                         <textarea id="content" name="content" required rows="5"
-                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
+                            class="w-full resize-none rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900 focus:border-transparent focus:ring-2 focus:ring-indigo-500 dark:bg-white dark:text-gray-900"
                             placeholder="Podziel się swoimi przemyśleniami...">{{ old('content') }}</textarea>
                     </div>
 
@@ -158,7 +158,7 @@
                             class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
                             Opublikuj komentarz
                         </button>
-                        <p class="text-sm text-gray-500">* Pola wymagane</p>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">* Pola wymagane</p>
                     </div>
                 </form>
             </div>
@@ -176,18 +176,18 @@
                         <div class="flex-1">
                             <div class="bg-gray-50 rounded-lg p-4">
                                 <div class="flex items-center justify-between mb-2 gap-4">
-                                    <h4 class="font-semibold text-gray-900">{{ $comment->author }}</h4>
-                                    <span class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">{{ $comment->author }}</h4>
+                                        <span class="text-sm text-gray-500 dark:text-gray-400">{{ $comment->created_at->diffForHumans() }}</span>
                                 </div>
 
-                                <p class="text-gray-700 leading-relaxed whitespace-pre-line">
+                                    <p class="whitespace-pre-line leading-relaxed text-gray-700 dark:text-gray-200">
                                     {{ $comment->content }}
                                 </p>
                             </div>
                         </div>
                     </div>
                 @empty
-                    <p class="text-sm text-gray-500">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
                         Brak komentarzy. Bądź pierwszą osobą, która zostawi opinię.
                     </p>
                 @endforelse
@@ -196,7 +196,7 @@
 
         <!-- Related Posts -->
         <section class="mt-12">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Powiązane artykuły</h2>
+            <h2 class="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Powiązane artykuły</h2>
             <div class="grid gap-6 md:grid-cols-3">
 
                 <!-- Related Post 1 -->
@@ -208,10 +208,10 @@
                             <span class="text-5xl">🤖</span>
                         </div>
                         <div class="p-4">
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 line-clamp-2 mb-2">
+                            <h3 class="mb-2 line-clamp-2 font-semibold text-gray-900 group-hover:text-indigo-600 dark:text-white">
                                 GitHub Copilot Agent Mode w praktyce
                             </h3>
-                            <p class="text-sm text-gray-500">8 min czytania</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">8 min czytania</p>
                         </div>
                     </article>
                 </a>
@@ -224,10 +224,10 @@
                             <span class="text-5xl">⚛️</span>
                         </div>
                         <div class="p-4">
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 line-clamp-2 mb-2">
+                            <h3 class="mb-2 line-clamp-2 font-semibold text-gray-900 group-hover:text-indigo-600 dark:text-white">
                                 Inertia.js - most między Laravel a React
                             </h3>
-                            <p class="text-sm text-gray-500">12 min czytania</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">12 min czytania</p>
                         </div>
                     </article>
                 </a>
@@ -241,10 +241,10 @@
                             <span class="text-5xl">🎨</span>
                         </div>
                         <div class="p-4">
-                            <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 line-clamp-2 mb-2">
+                            <h3 class="mb-2 line-clamp-2 font-semibold text-gray-900 group-hover:text-indigo-600 dark:text-white">
                                 Laravel Filament - admin panel w 15 minut
                             </h3>
-                            <p class="text-sm text-gray-500">6 min czytania</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">6 min czytania</p>
                         </div>
                     </article>
                 </a>

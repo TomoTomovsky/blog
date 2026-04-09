@@ -1,5 +1,5 @@
 <x-layout>
-    <form id="create-post-form" method="POST" action="{{ route('posts.store') }}" class="flex flex-col max-w-3xl mx-auto my-4">
+    <form id="create-post-form" method="POST" action="{{ route('posts.store') }}" class="flex flex-col max-w-3xl mx-auto my-4 rounded-2xl bg-white p-6 text-gray-900 shadow-lg dark:bg-white dark:text-gray-900">
         @csrf
 
         @if ($errors->any())
@@ -10,37 +10,37 @@
             </ul>
         @endif
 
-        <label>Tytul</label>
-        <input type="text" name="title" value="{{ old('title') }}" />
+        <label class="text-gray-900">Tytul</label>
+        <input type="text" name="title" value="{{ old('title') }}" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900" />
         @error('title')
             <div class="text-red-500">{{ $message }}</div>
         @enderror
 
-        <label>Przyjazny adres</label>
-        <input type="text" name="slug" value="{{ old('slug') }}" />
+        <label class="text-gray-900">Przyjazny adres</label>
+        <input type="text" name="slug" value="{{ old('slug') }}" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900" />
         @error('slug')
             <div class="text-red-500">{{ $message }}</div>
         @enderror
 
-        <label>Autor</label>
-        <input type="text" name="author" value="{{ old('author') }}" />
+        <label class="text-gray-900">Autor</label>
+        <input type="text" name="author" value="{{ old('author') }}" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900" />
         @error('author')
             <div class="text-red-500">{{ $message }}</div>
         @enderror
 
-        <label>Zajawka</label>
-        <textarea name="lead">{{ old('lead') }}</textarea>
+        <label class="text-gray-900">Zajawka</label>
+        <textarea name="lead" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900">{{ old('lead') }}</textarea>
         @error('lead')
             <div class="text-red-500">{{ $message }}</div>
         @enderror
 
-        <label>Treść</label>
-        <textarea name="content">{{ old('content') }}</textarea>
+        <label class="text-gray-900">Treść</label>
+        <textarea name="content" class="rounded-lg border border-gray-300 bg-white px-4 py-2 text-gray-900">{{ old('content') }}</textarea>
         @error('content')
             <div class="text-red-500">{{ $message }}</div>
         @enderror
 
-        <button id="robot-check-button" type="button" class="bg-blue-700 text-white p-4 mt-4">Dodaj</button>
+        <button id="robot-check-button" type="button" class="mt-4 rounded-lg bg-blue-700 p-4 text-white">Dodaj</button>
     </form>
 
     <div id="captcha-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/40 p-4">

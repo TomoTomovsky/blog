@@ -4,8 +4,8 @@
         <!-- Header -->
         <div class="mb-8 flex items-center justify-between gap-4">
             <div>
-                <h2 class="text-3xl font-bold text-gray-900">Najnowsze Posty</h2>
-                <p class="mt-2 text-gray-600">Odkryj najnowsze artykuły z świata programowania</p>
+                <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Najnowsze Posty</h2>
+                <p class="mt-2 text-gray-600 dark:text-gray-300">Odkryj najnowsze artykuły z świata programowania</p>
             </div>
 
             <a href="{{ route('posts.random') }}"
