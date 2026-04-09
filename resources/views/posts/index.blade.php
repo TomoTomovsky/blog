@@ -58,6 +58,26 @@
                             </div>
                             <span class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</span>
                         </div>
+
+                        <div class="mt-4 flex items-center gap-2">
+                            <form action="{{ route('posts.reactions.store', $post->slug) }}" method="POST">
+                                @csrf
+                                <button type="submit" name="reaction" value="like"
+                                    class="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-medium text-gray-700 hover:border-green-300 hover:text-green-700">
+                                    <span>👍</span>
+                                    <span>{{ $post->likes_count }}</span>
+                                </button>
+                            </form>
+
+                            <form action="{{ route('posts.reactions.store', $post->slug) }}" method="POST">
+                                @csrf
+                                <button type="submit" name="reaction" value="dislike"
+                                    class="inline-flex items-center gap-1 rounded-full border border-gray-200 bg-white px-3 py-1 text-sm font-medium text-gray-700 hover:border-red-300 hover:text-red-700">
+                                    <span>👎</span>
+                                    <span>{{ $post->dislikes_count }}</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </article>
             @empty

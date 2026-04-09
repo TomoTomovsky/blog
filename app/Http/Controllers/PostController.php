@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostReactionRequest;
 use App\Models\Post;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -55,5 +57,39 @@ class PostController extends Controller
         $post->save();
 
         return redirect()->route('posts.index');
+    }
+
+    public function react(StorePostReactionRequest $request, string $slug): RedirectResponse
+    {
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $reaction = $request->validated('reaction');
+        $sessionKey = 'post_reactions';
+
+        /** @var array<int, string> $sessionReactions */
+        $sessionReactions = $request->session()->get($sessionKey, []);
+        $previousReaction = $sessionReactions[$post->id] ?? null;
+
+        if ($previousReaction === $reaction) {
+            return redirect()->back();
+        }
+
+        if ($previousReaction === 'like' && $post->likes_count > 0) {
+            $post->decrement('likes_count');
+        }
+
+        if ($previousReaction === 'dislike' && $post->dislikes_count > 0) {
+            $post->decrement('dislikes_count');
+        }
+
+        if ($reaction === 'like') {
+            $post->increment('likes_count');
+        } else {
+            $post->increment('dislikes_count');
+        }
+
+        $sessionReactions[$post->id] = $reaction;
+        $request->session()->put($sessionKey, $sessionReactions);
+
+        return redirect()->back();
     }
 }

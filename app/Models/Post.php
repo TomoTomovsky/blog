@@ -19,6 +19,8 @@ class Post extends Model
         'author',
         'photo',
         'is_published',
+        'likes_count',
+        'dislikes_count',
     ];
 
     public function comments(): HasMany
