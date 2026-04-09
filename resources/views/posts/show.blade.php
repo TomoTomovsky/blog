@@ -98,47 +98,61 @@
         </article>
 
         <!-- Comments Section -->
-        <section class="bg-white rounded-lg shadow-md p-8">
+        <section id="comments" class="bg-white rounded-lg shadow-md p-8">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">
-                Komentarze (3)
+                Komentarze ({{ $post->comments->count() }})
             </h2>
 
-            <!-- Comment Form -->
+            @if (session('success'))
+                <div class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-800">
+                    {{ session('success') }}
+                </div>
+            @endif
+
+            @if ($errors->any())
+                <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                    <ul class="space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <div class="mb-8 pb-8 border-b border-gray-200">
                 <h3 class="text-lg font-semibold text-gray-900 mb-4">Dodaj komentarz</h3>
-                <form class="space-y-4">
-                    <!-- Name -->
+
+                <form action="{{ route('posts.comments.store', $post->slug) }}" method="POST" class="space-y-4">
+                    @csrf
+
                     <div>
                         <label for="author" class="block text-sm font-medium text-gray-700 mb-2">
                             Twoje imię *
                         </label>
-                        <input type="text" id="author" name="author" required
+                        <input type="text" id="author" name="author" value="{{ old('author') }}" required
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             placeholder="Jan Kowalski">
                     </div>
 
-                    <!-- Email -->
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
                             Email *
                         </label>
-                        <input type="email" id="email" name="email" required
+                        <input type="email" id="email" name="email" value="{{ old('email') }}" required
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
                             placeholder="jan@example.com">
                         <p class="mt-1 text-sm text-gray-500">Email nie będzie publikowany</p>
                     </div>
 
-                    <!-- Comment Content -->
                     <div>
                         <label for="content" class="block text-sm font-medium text-gray-700 mb-2">
                             Komentarz *
                         </label>
                         <textarea id="content" name="content" required rows="5"
                             class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none"
-                            placeholder="Podziel się swoimi przemyśleniami..."></textarea>
+                            placeholder="Podziel się swoimi przemyśleniami...">{{ old('content') }}</textarea>
                     </div>
 
-                    <!-- Submit Button -->
                     <div class="flex items-center gap-4">
                         <button type="submit"
                             class="bg-indigo-600 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-700 transition-colors">
@@ -149,155 +163,34 @@
                 </form>
             </div>
 
-            <!-- Comments List -->
             <div class="space-y-6">
-
-                <!-- Comment 1 -->
-                <div class="flex gap-4">
-                    <div class="flex-shrink-0">
-                        <div
-                            class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
-                            AN
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex items-center justify-between mb-2">
-                                <h4 class="font-semibold text-gray-900">Anna Nowak</h4>
-                                <span class="text-sm text-gray-500">2 godziny temu</span>
-                            </div>
-                            <p class="text-gray-700 leading-relaxed">
-                                Świetny artykuł! Właśnie zaczynałam przygodę z Laravel i ten tutorial bardzo mi pomógł.
-                                Sail to genialne rozwiązanie - wszystko działa od razu bez konfiguracji 🚀
-                            </p>
-                            <div class="mt-3 flex items-center gap-4">
-                                <button class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
-                                    Odpowiedz
-                                </button>
-                                <button class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                                    </svg>
-                                    <span>12</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Comment 2 -->
-                <div class="flex gap-4">
-                    <div class="flex-shrink-0">
-                        <div
-                            class="w-12 h-12 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center text-white font-semibold">
-                            MK
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex items-center justify-between mb-2">
-                                <h4 class="font-semibold text-gray-900">Marek Kowalczyk</h4>
-                                <span class="text-sm text-gray-500">5 godzin temu</span>
-                            </div>
-                            <p class="text-gray-700 leading-relaxed">
-                                Czy Laravel 11 ma jakieś breaking changes w porównaniu do wersji 10? Planujemy migrację
-                                projektu i zastanawiam się, ile pracy nas czeka.
-                            </p>
-                            <div class="mt-3 flex items-center gap-4">
-                                <button class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
-                                    Odpowiedz
-                                </button>
-                                <button class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                                    </svg>
-                                    <span>5</span>
-                                </button>
+                @forelse ($post->comments as $comment)
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0">
+                            <div
+                                class="w-12 h-12 bg-gradient-to-br from-indigo-400 to-blue-600 rounded-full flex items-center justify-center text-white font-semibold">
+                                {{ strtoupper(substr($comment->author, 0, 2)) }}
                             </div>
                         </div>
 
-                        <!-- Nested Reply -->
-                        <div class="ml-8 mt-4 flex gap-4">
-                            <div class="flex-shrink-0">
-                                <div
-                                    class="w-10 h-10 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                                    JK
+                        <div class="flex-1">
+                            <div class="bg-gray-50 rounded-lg p-4">
+                                <div class="flex items-center justify-between mb-2 gap-4">
+                                    <h4 class="font-semibold text-gray-900">{{ $comment->author }}</h4>
+                                    <span class="text-sm text-gray-500">{{ $comment->created_at->diffForHumans() }}</span>
                                 </div>
-                            </div>
-                            <div class="flex-1">
-                                <div class="bg-indigo-50 rounded-lg p-4 border border-indigo-100">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <div class="flex items-center gap-2">
-                                            <h4 class="font-semibold text-gray-900">Jan Kowalski</h4>
-                                            <span
-                                                class="px-2 py-0.5 bg-indigo-600 text-white text-xs rounded-full">Autor</span>
-                                        </div>
-                                        <span class="text-sm text-gray-500">3 godziny temu</span>
-                                    </div>
-                                    <p class="text-gray-700 leading-relaxed">
-                                        @Marek - Breaking changes są minimalne! Głównie dotyczą struktury katalogów i
-                                        konfiguracji. Polecam sprawdzić oficjalny upgrade guide na laravel.com
-                                    </p>
-                                    <div class="mt-3 flex items-center gap-4">
-                                        <button
-                                            class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1">
-                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                                            </svg>
-                                            <span>8</span>
-                                        </button>
-                                    </div>
-                                </div>
+
+                                <p class="text-gray-700 leading-relaxed whitespace-pre-line">
+                                    {{ $comment->content }}
+                                </p>
                             </div>
                         </div>
                     </div>
-                </div>
-
-                <!-- Comment 3 -->
-                <div class="flex gap-4">
-                    <div class="flex-shrink-0">
-                        <div
-                            class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
-                            KW
-                        </div>
-                    </div>
-                    <div class="flex-1">
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex items-center justify-between mb-2">
-                                <h4 class="font-semibold text-gray-900">Kasia Wiśniewska</h4>
-                                <span class="text-sm text-gray-500">1 dzień temu</span>
-                            </div>
-                            <p class="text-gray-700 leading-relaxed">
-                                Czy ktoś używał Sail w produkcji? Czy to tylko narzędzie developerskie, czy można na nim
-                                oprzeć deployment?
-                            </p>
-                            <div class="mt-3 flex items-center gap-4">
-                                <button class="text-sm text-indigo-600 hover:text-indigo-700 font-medium">
-                                    Odpowiedz
-                                </button>
-                                <button class="text-sm text-gray-500 hover:text-gray-700 flex items-center gap-1">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5" />
-                                    </svg>
-                                    <span>3</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Load More Comments -->
-            <div class="mt-8 text-center">
-                <button class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
-                    Załaduj więcej komentarzy
-                </button>
+                @empty
+                    <p class="text-sm text-gray-500">
+                        Brak komentarzy. Bądź pierwszą osobą, która zostawi opinię.
+                    </p>
+                @endforelse
             </div>
         </section>
 
