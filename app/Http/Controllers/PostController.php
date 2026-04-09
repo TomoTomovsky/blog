@@ -9,9 +9,15 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::all();
+        $searchTerm = trim((string) $request->query('q', ''));
+
+        $posts = Post::query()
+            ->when($searchTerm !== '', function ($query) use ($searchTerm) {
+                $query->where('title', 'like', "%{$searchTerm}%");
+            })
+            ->get();
 
         return view('posts.index', [
             'posts' => $posts,
