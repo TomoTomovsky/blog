@@ -14,6 +14,7 @@ Route::get('/hello-world/{name}', [HelloController::class, 'index']);
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 Route::post('/posts/{slug}/reactions', [PostController::class, 'react'])->name('posts.reactions.store');
 Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+Route::get('/posts/random', [PostController::class, 'random'])->name('posts.random');
 
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{slug}', [PostController::class, 'show'])->name('posts.show');

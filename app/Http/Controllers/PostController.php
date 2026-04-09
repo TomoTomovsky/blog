@@ -34,6 +34,17 @@ class PostController extends Controller
         return view('posts.create');
     }
 
+    public function random(): RedirectResponse
+    {
+        $post = Post::query()->inRandomOrder()->first();
+
+        if (! $post) {
+            return redirect()->route('posts.index');
+        }
+
+        return redirect()->route('posts.show', $post->slug);
+    }
+
     public function store(Request $request)
     {
         $parameters = $request->validate([

@@ -2,9 +2,16 @@
     <!-- Main Content -->
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
-        <div class="mb-8">
-            <h2 class="text-3xl font-bold text-gray-900">Najnowsze Posty</h2>
-            <p class="mt-2 text-gray-600">Odkryj najnowsze artykuły z świata programowania</p>
+        <div class="mb-8 flex items-center justify-between gap-4">
+            <div>
+                <h2 class="text-3xl font-bold text-gray-900">Najnowsze Posty</h2>
+                <p class="mt-2 text-gray-600">Odkryj najnowsze artykuły z świata programowania</p>
+            </div>
+
+            <a href="{{ route('posts.random') }}"
+                class="inline-flex items-center gap-2 rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-700">
+                Losowy Post
+            </a>
         </div>
 
         <!-- Filters/Search Bar -->
