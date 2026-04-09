@@ -6,5 +6,6 @@ test('the application returns a successful response', function () {
     $response
         ->assertSuccessful()
         ->assertSee('id="duck-button"', false)
+        ->assertSee('id="theme-toggle"', false)
         ->assertSee('click me');
 });

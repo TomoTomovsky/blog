@@ -1,15 +1,27 @@
 <!DOCTYPE html>
-<html lang="pl" class="h-full bg-gray-50">
+<html lang="pl" class="h-full">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Lista Postów</title>
 
+    <script>
+        (() => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const shouldUseDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
+            if (shouldUseDark) {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+
     @vite(['resources/css/app.css'])
 </head>
 
-<body class="h-full">
+<body class="h-full bg-gray-50 text-gray-900 transition-colors dark:bg-gray-900 dark:text-gray-100">
     @include('partials.navigation')
 
     <div id="duck-widget" class="fixed left-3 top-20 z-50">
@@ -24,7 +36,7 @@
         </button>
 
         <div id="duck-joke-bubble"
-            class="mt-3 hidden max-w-xs rounded-xl border border-amber-200 bg-white px-4 py-3 text-sm text-gray-800 shadow-xl">
+            class="mt-3 hidden max-w-xs rounded-xl border border-amber-200 bg-white px-4 py-3 text-sm text-gray-800 shadow-xl dark:border-gray-700 dark:bg-gray-800 dark:text-gray-100">
             <p id="duck-joke-text">Hello dev.</p>
         </div>
     </div>
